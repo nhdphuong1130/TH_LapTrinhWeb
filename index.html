@@ -1,0 +1,450 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TechVN</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="site-header">
+      <div class="container nav">
+        <a class="brand" href="#home">TechVN</a>
+        <nav class="nav-center" id="navLinks">
+          <a class="nav-link" data-view="home" href="#home">Trang ca nhan</a>
+          <a class="nav-link" data-view="phones" href="#phones">Điện thoại</a>
+          <a class="nav-link" data-view="laptops" href="#laptops">Laptop</a>
+          <a class="nav-link" data-view="components" href="#components">Linh kiện</a>
+          <a class="nav-link" data-view="accessories" href="#accessories">Phụ kiện</a>
+          <a class="nav-link" data-view="promotions" href="#promotions">Khuyến mãi</a>
+        </nav>
+        <div class="nav-right">
+          <input class="search" type="text" placeholder="Tìm kiếm sản phẩm...">
+          <button class="icon-btn" type="button" aria-label="Giỏ hàng">🛒</button>
+          <button class="icon-btn" type="button" aria-label="Tài khoản">👤</button>
+        </div>
+      </div>
+    </header>
+
+    <main id="app" class="container view"></main>
+
+    <footer class="footer">
+      <div class="container footer-wrap">
+        <div>
+          <h3 style="margin:0 0 10px">TechVN</h3>
+          <p style="margin:0;max-width:280px">Đối tác công nghệ tin cậy, cung cấp giải pháp phần cứng tối ưu cho người dùng Việt.</p>
+        </div>
+        <div class="footer-links">
+          <a href="#home">Về chúng tôi</a>
+          <a href="#home">Chính sách bảo hành</a>
+          <a href="#home">Trung tâm trợ giúp</a>
+          <a href="#home">Hệ thống cửa hàng</a>
+          <a href="#home">Tuyển dụng</a>
+        </div>
+        <p style="margin:0;text-align:right">© 2024 TechVN. Tất cả quyền được bảo lưu.<br>Thiết kế cho hiệu suất cao.</p>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    const products = {
+      phones: [
+        { id: "iphone-15-pro-max", cat: "APPLE", name: "iPhone 15 Pro Max", price: "34.990.000Ä'", spec: "A17 Pro Bionic / 8GB RAM / 256GB / 48MP Pro System", image: "./images/unnamed .png" },
+        { id: "s24-ultra", cat: "SAMSUNG", name: "Galaxy S24 Ultra", price: "31.490.000Ä'", spec: "Snapdragon 8 Gen 3 / 12GB RAM / 512GB / 200MP Quad Cam", image: "./images/unnamed (24).png" },
+        { id: "xiaomi-14-pro", cat: "XIAOMI", name: "Xiaomi 14 Pro", price: "22.990.000Ä'", spec: "Snapdragon 8 Gen 3 / 16GB RAM / 512GB / Leica Optics", image: "./images/unnamed (25).png" },
+        { id: "pixel-8-pro", cat: "GOOGLE", name: "Pixel 8 Pro", price: "24.500.000Ä'", spec: "Google Tensor G3 / 12GB RAM / 256GB / 50MP AI Camera", image: "./images/unnamed (26).png" }
+      ],
+      laptops: [
+        { id: "rog-g14", cat: "LAPTOP", name: "ROG Zephyrus G14 (2024) - RTX 4060", price: "34.990.000đ", old: "41.990.000đ", spec: 'Ryzen 9 / 16GB / 1TB SSD / 14" OLED', image: "./images/unnamed (2).png", stars: "★★★★★ (128)" },
+        { id: "mba-m3", cat: "LAPTOP", name: "MacBook Air M3 (13-inch)", price: "32.490.000đ", spec: "Apple M3 / 16GB / 512GB SSD / Liquid Retina", image: "./images/unnamed (24).png", stars: "★★★★★ (452)" },
+        { id: "xps-15", cat: "LAPTOP", name: "Dell XPS 15 9530 (2023)", price: "38.990.000đ", old: "43.500.000đ", spec: "Core i7-13700H / 16GB / 512GB / Arc A370M", image: "./images/unnamed (6).png", stars: "★★★★☆ (84)" },
+        { id: "omen-16", cat: "LAPTOP", name: "HP Omen 16 (2024)", price: "42.990.000đ", spec: "Core i7-14700HX / 32GB / 1TB / RTX 4070", image: "./images/unnamed (2).png", stars: "★★★★★ (215)" },
+        { id: "yoga-slim", cat: "LAPTOP", name: "Lenovo Yoga Slim 7i", price: "27.990.000đ", old: "34.990.000đ", spec: "Core Ultra 7 / 32GB / 1TB / OLED 2.8K", image: "./images/unnamed (25).png", stars: "★★★★☆ (56)" },
+        { id: "mbp-14", cat: "LAPTOP", name: "MacBook Pro 14 (M3 Pro)", price: "49.990.000đ", spec: "M3 Pro 11-Core / 18GB / 512GB SSD", image: "./images/unnamed (26).png", stars: "★★★★★ (1,024)" }
+      ],
+      components: [
+        { id: "rtx-4090", cat: "NVIDIA", name: "ASUS ROG Strix RTX 4090", price: "45.890.000Ä'", old: "52.990.000Ä'", spec: "24GB GDDR6X, Triple Fan, DLSS 3.0", image: "./images/unnamed (12).png" },
+        { id: "i9-14900k", cat: "INTEL", name: "Intel Core i9-14900K", price: "15.490.000Ä'", spec: "24 Cores, 32 Threads, up to 6.0 GHz", image: "./images/unnamed (13).png" },
+        { id: "z790-godlike", cat: "MSI", name: "MSI MEG Z790 GODLIKE", price: "28.290.000Ä'", spec: "E-ATX, DDR5 Support, PCIe 5.0", image: "./images/unnamed (14).png" },
+        { id: "corsair-ddr5", cat: "CORSAIR", name: "Corsair Dominator Titanium 32GB", price: "6.750.000Ä'", spec: "6400MHz CL32, DDR5, RGB", image: "./images/unnamed (15).png" },
+        { id: "seasonic-tx1600", cat: "SEASONIC", name: "Seasonic Prime TX-1600", price: "12.250.000Ä'", spec: "1600W, 80 Plus Titanium, Full Modular", image: "./images/unnamed (16).png" },
+        { id: "ryzen-7950x3d", cat: "AMD", name: "AMD Ryzen 9 7950X3D", price: "16.190.000Ä'", spec: "16 Cores, 32 Threads, 144MB Cache", image: "./images/unnamed (17).png" }
+      ],
+      accessories: [
+        { id: "superlight", cat: "GAMING MOUSE", name: "Logitech G Pro X Superlight", price: "2.990.000đ", old: "3.500.000đ", spec: "Chuột không dây trọng lượng nhẹ cho gaming", image: "./images/unnamed (18).png" },
+        { id: "sony-xm5", cat: "AUDIO", name: "Sony WH-1000XM5 ANC", price: "8.490.000đ", spec: "Tai nghe chống ồn chủ động cao cấp", image: "./images/unnamed (19).png" },
+        { id: "blackwidow-v4-pro", cat: "KEYBOARD", name: "Razer BlackWidow V4 Pro", price: "5.250.000đ", spec: "Bàn phím cơ RGB hiệu năng cao", image: "./images/unnamed (20).png" },
+        { id: "magic-mouse", cat: "OFFICE MOUSE", name: "Apple Magic Mouse 2", price: "1.890.000đ", spec: "Chuột văn phòng thiết kế tối giản", image: "./images/unnamed (21).png" },
+        { id: "samsung-45w", cat: "CHARGING", name: "Samsung 45W PD Adapter", price: "650.000đ", spec: "Sạc nhanh 45W kèm cáp braided", image: "./images/unnamed (22).png" },
+        { id: "qck-edge", cat: "ACCESSORIES", name: "SteelSeries QcK Edge XL", price: "450.000đ", spec: "Lót chuột size XL cho gaming setup", image: "./images/unnamed (23).png" }
+      ],
+      promoFlash: [
+        { id: "flash-iphone", cat: "FLASH SALE", name: "iPhone 15 Pro Max 256GB", price: "28.490.000đ", old: "34.990.000đ", spec: "Flagship giảm sâu, số lượng có hạn", image: "./images/unnamed (30).png" },
+        { id: "flash-mba", cat: "FLASH SALE", name: 'MacBook Air M2 13"', price: "22.990.000đ", old: "26.990.000đ", spec: "Laptop mỏng nhẹ sale mạnh trong ngày", image: "./images/unnamed (31).png" },
+        { id: "flash-lg", cat: "FLASH SALE", name: 'Màn hình LG UltraWide 34"', price: "8.990.000đ", old: "14.990.000đ", spec: "Màn hình cong cho setup hiệu suất", image: "./images/unnamed (32).png" },
+        { id: "flash-gpu", cat: "FLASH SALE", name: "RTX 4070 Ti Super 12GB", price: "23.490.000đ", old: "25.990.000đ", spec: "GPU hiệu năng cao, số lượng cực ít", image: "./images/unnamed (33).png" }
+      ],
+      promoSale: [
+        { id: "sale-pc", cat: "LINH KIỆN PC", name: "PC Gaming TechVN - RTX 4060", price: "19.125.000đ", old: "22.500.000đ", spec: "PC build sẵn tối ưu gaming và sáng tạo", image: "./images/unnamed (34).png" },
+        { id: "sale-ipad", cat: "LAPTOP & TABLET", name: 'iPad Pro M2 11" 128GB Wi-Fi', price: "18.890.000đ", old: "20.990.000đ", spec: "Tablet cao cấp cho làm việc và giải trí", image: "./images/unnamed (35).png" },
+        { id: "sale-razer", cat: "PHỤ KIỆN", name: "Bàn phím cơ Razer BlackWidow V4", price: "2.495.000đ", old: "4.990.000đ", spec: "Phụ kiện gaming giảm 50 phần trăm", image: "./images/unnamed (36).png" },
+        { id: "sale-dell", cat: "LAPTOP & TABLET", name: "Dell XPS 13 Plus 9320", price: "33.600.000đ", old: "42.000.000đ", spec: "Laptop creator gọn, mạnh, giảm giá mạnh", image: "./images/unnamed (37).png" }
+      ]
+    };
+
+    const productIndex = Object.values(products).flat().reduce((acc, item) => {
+      acc[item.id] = item;
+      return acc;
+    }, {});
+
+    const app = document.getElementById("app");
+    const navLinks = [...document.querySelectorAll(".nav-link")];
+
+    const money = (p, o) => `<span class="price">${p}${o ? `<span class="price-old">${o}</span>` : ""}</span>`;
+    const cart = `<span class="cart-btn">🛒 Thêm giỏ</span>`;
+
+    function productCard(item, landscape = false, showStars = false) {
+      return `
+        <a class="card product-card" href="#product/${item.id}">
+          <div class="product-thumb ${landscape ? "landscape" : ""}"><img src="${item.image}" alt="${item.name}"></div>
+          <div class="product-info">
+            <p class="product-cat">${item.cat}</p>
+            ${showStars && item.stars ? `<div style="color:#d8b67a;font-size:12px;margin-bottom:6px">${item.stars}</div>` : ""}
+            <h3 class="product-name">${item.name}</h3>
+            <p class="product-spec">${item.spec}</p>
+            <div class="product-bottom">
+              ${money(item.price, item.old)}
+              ${cart}
+            </div>
+          </div>
+        </a>
+      `;
+    }
+
+    function renderHome() {
+      app.innerHTML = `
+        <section class="hero-grid">
+          <div class="hero-card hero-copy">
+            <span class="tag">Mới ra mắt</span>
+            <h1>iPhone 15 Pro</h1>
+            <p>Sức mạnh của Titanium. Chip A17 Pro định hình lại cuộc chơi. Hệ thống camera tiên tiến nhất trên iPhone.</p>
+            <div class="cta-row">
+              <a class="btn primary" href="#phones">Xem điện thoại</a>
+              <a class="btn" href="#product/iphone-15-pro-max">Xem chi tiết</a>
+            </div>
+          </div>
+          <div class="hero-card hero-media"><img src="./images/unnamed.png" alt="iPhone 15 Pro"></div>
+        </section>
+
+        <section style="margin-top:34px">
+          <div class="section-head"><h2>Danh mục nổi bật</h2></div>
+          <div class="category-grid">
+            <a class="card category-card large" href="#phones"><img src="./images/unnamed (1).png" alt=""><div class="overlay"><h3>Điện thoại</h3><p>Trải nghiệm đỉnh cao công nghệ</p></div></a>
+            <a class="card category-card wide" href="#laptops"><img src="./images/unnamed (2).png" alt=""><div class="overlay"><h3>Laptop</h3></div></a>
+            <a class="card category-card" href="#components"><img src="./images/unnamed (3).png" alt=""><div class="overlay"><h3>Linh kiện</h3></div></a>
+            <a class="card category-card" href="#accessories"><img src="./images/unnamed (4).png" alt=""><div class="overlay"><h3>Phụ kiện</h3></div></a>
+          </div>
+        </section>
+
+        <section style="margin-top:34px">
+          <div class="section-head"><h2>Sản phẩm mới về</h2><a href="#promotions">Xem tất cả</a></div>
+          <div class="cards-grid">
+            ${productCard(products.laptops[0])}
+            ${productCard(products.accessories[0])}
+            ${productCard(products.components[0])}
+            ${productCard(products.accessories[1])}
+          </div>
+        </section>
+
+        <section style="margin-top:34px">
+          <div class="section-head"><h2>Sản phẩm bán chạy nhất</h2></div>
+          <div class="bestseller-grid">
+            <a class="card feature-card" href="#product/iphone-15-pro-max">
+              <div class="feature-copy">
+                <p class="product-cat">BEST SELLER</p>
+                <h3>iPhone 15 Pro Max</h3>
+                <p>Flagship mạnh mẽ nhất của Apple với camera Zoom 5x quang học và khung viền Titan siêu bền.</p>
+                ${money("32.990.000Ä'", "34.990.000Ä'")}
+                <div style="margin-top:12px">${cart}</div>
+              </div>
+              <div class="feature-media">
+                <img src="./images/unnamed (8).png" alt="">
+              </div>
+            </a>
+            <div class="mini-stack">
+              <a class="card mini-product" href="#product/mini-pc">
+                <div class="product-thumb">
+                  <img src="./images/unnamed (9).png" alt="">
+                </div>
+                <div class="product-info">
+                  <p class="product-cat">BEST SELLER</p>
+                  <h3 class="product-name">PC Gaming Custom TechVN</h3>
+                  <p class="product-spec">Build sẵn RGB hiệu năng cao</p>
+                  <div class="product-bottom">${money("24.500.000Ä'")}</div>
+                </div>
+              </a>
+              <a class="card mini-product" href="#product/mini-ipad">
+                <div class="product-thumb">
+                  <img src="./images/unnamed (10).png" alt="">
+                </div>
+                <div class="product-info">
+                  <p class="product-cat">BEST SELLER</p>
+                  <h3 class="product-name">iPad Pro M2 12.9"</h3>
+                  <p class="product-spec">Màn hình lớn cho sáng tạo</p>
+                  <div class="product-bottom">${money("28.990.000Ä'")}</div>
+                </div>
+              </a>
+              <a class="card mini-product" href="#product/mini-airpods">
+                <div class="product-thumb">
+                  <img src="./images/unnamed (11).png" alt="">
+                </div>
+                <div class="product-info">
+                  <p class="product-cat">BEST SELLER</p>
+                  <h3 class="product-name">AirPods Pro Gen 2</h3>
+                  <p class="product-spec">Chống ồn chủ động, kết nối tức thì</p>
+                  <div class="product-bottom">${money("5.990.000Ä'")}</div>
+                </div>
+              </a>
+            </div>
+          </div>
+        </section>
+      `;
+    }
+
+    function renderListing(config) {
+      app.innerHTML = `
+        <div class="two-col">
+          <aside class="sidebar">
+            <h2>${config.sidebarTitle}</h2>
+            ${config.sidebar}
+          </aside>
+          <section>
+            <div class="section-head">
+              <div>
+                <h1>${config.title}</h1>
+                <p>${config.subtitle}</p>
+              </div>
+              <div class="sort-badge">${config.sort}</div>
+            </div>
+            <div class="cards-grid compact-3">
+              ${config.items.map((item) => productCard(item, false, config.showStars)).join("")}
+            </div>
+            ${config.pagination ? `<div class="pagination">${config.pagination}</div>` : ""}
+          </section>
+        </div>
+      `;
+    }
+
+    function renderPromotions() {
+      app.innerHTML = `
+        <section class="promo-hero">
+          <a class="box promo-banner large" href="#promotions">
+            <img src="./images/unnamed (27).png" alt="">
+            <div class="promo-copy"><h2>Xả kho đón Tết</h2><p>Giảm sâu đến 50% cho toàn bộ mặt hàng điện tử cao cấp.</p></div>
+          </a>
+          <div class="promo-stack">
+            <a class="box promo-banner" href="#components"><img src="./images/unnamed (28).png" alt=""><div class="promo-copy"><h3 style="margin:0">Sale linh kiện PC</h3><p>Up to 30% Off</p></div></a>
+            <a class="box promo-banner" href="#accessories"><img src="./images/unnamed (29).png" alt=""><div class="promo-copy"><h3 style="margin:0">Phụ kiện Audio</h3><p>Giá chỉ từ 199k</p></div></a>
+          </div>
+        </section>
+
+        <section style="margin-top:28px">
+          <div class="section-head"><h2>Flash Sales</h2><div class="meta-badge">02 : 45 : 12</div></div>
+          <div class="cards-grid">
+            ${products.promoFlash.map((item) => productCard(item)).join("")}
+          </div>
+        </section>
+
+        <section style="margin-top:28px" class="two-col">
+          <aside class="sidebar">
+            <h2>Bộ lọc</h2>
+            <h3>SẮP XẾP THEO</h3>
+            <label><input type="radio" name="sort"> Giảm giá nhiều nhất</label>
+            <label><input type="radio" name="sort"> Giá thấp đến cao</label>
+            <label><input type="radio" name="sort"> Sản phẩm mới nhất</label>
+            <h3>DANH MỤC</h3>
+            <label><input type="checkbox" checked> Tất cả sản phẩm</label>
+            <label><input type="checkbox"> Điện thoại</label>
+            <label><input type="checkbox"> Laptop & Tablet</label>
+            <label><input type="checkbox"> Linh kiện PC</label>
+            <label><input type="checkbox"> Phụ kiện</label>
+            <h3>THƯƠNG HIỆU</h3>
+            <div class="chips"><span class="chip">Apple</span><span class="chip">Samsung</span><span class="chip">ASUS</span><span class="chip">MSI</span><span class="chip">Logitech</span><span class="chip">Razer</span></div>
+          </aside>
+          <section>
+            <div class="section-head">
+              <div>
+                <h2>Sản phẩm đang giảm giá</h2>
+                <p>Hiển thị 1-12 của 154 sản phẩm</p>
+              </div>
+            </div>
+            <div class="cards-grid compact-3">
+              ${products.promoSale.map((item) => productCard(item, true)).join("")}
+            </div>
+            <div class="pagination"><span class="page">‹</span><span class="page is-active">1</span><span class="page">2</span><span class="page">3</span><span class="page">›</span></div>
+          </section>
+        </section>
+      `;
+    }
+
+    function renderProduct(id) {
+      const item = productIndex[id] || products.phones[0];
+      app.innerHTML = `
+        <section class="hero-grid">
+          <div class="hero-card hero-media" style="padding:24px"><img src="${item.image}" alt="${item.name}"></div>
+          <article class="hero-card hero-copy">
+            <div class="product-cat">${item.cat}</div>
+            <h1>${item.name}</h1>
+            <p>${item.spec}</p>
+            <div style="margin-top:4px">${money(item.price, item.old)}</div>
+            <div class="cta-row">
+              <button class="btn primary" type="button">🛒 Thêm vào giỏ hàng</button>
+              <button class="btn" type="button">Mua ngay</button>
+            </div>
+          </article>
+        </section>
+        <section style="margin-top:24px">
+          <article class="panel" style="padding:20px">
+            <h2 style="margin:0 0 10px;font-size:30px">Mô tả chi tiết</h2>
+            <p style="margin:0;color:var(--muted);line-height:1.7">Danh mục: ${item.cat}. Cấu hình và đặc điểm chính: ${item.spec}. Đây là sản phẩm đang được hiển thị từ luồng điều hướng một file duy nhất của project.</p>
+          </article>
+        </section>
+      `;
+    }
+
+    function renderRoute() {
+      const hash = location.hash.replace(/^#/, "") || "home";
+      const [view, id] = hash.split("/");
+
+      navLinks.forEach((link) => {
+        link.classList.toggle("is-active", link.dataset.view === view);
+      });
+
+      if (view === "phones") {
+        renderListing({
+          sidebarTitle: "Bộ lọc",
+          title: "Điện thoại di động",
+          subtitle: "Khám phá bộ sưu tập smartphone flagship, gaming và camera phone nổi bật nhất hiện nay.",
+          sort: "Sắp xếp: Mới nhất",
+          items: products.phones,
+          sidebar: `
+            <h3>THƯƠNG HIỆU</h3>
+            <label><input type="checkbox"> Apple</label>
+            <label><input type="checkbox"> Samsung</label>
+            <label><input type="checkbox"> Xiaomi</label>
+            <label><input type="checkbox"> OPPO</label>
+            <label><input type="checkbox"> Google</label>
+            <h3>PHÂN KHÚC GIÁ</h3>
+            <label><input type="radio" name="phone-price"> Dưới 10 triệu</label>
+            <label><input type="radio" name="phone-price"> 10 - 20 triệu</label>
+            <label><input type="radio" name="phone-price"> Trên 20 triệu</label>
+            <h3>DUNG LƯỢNG RAM</h3>
+            <div class="chips"><span class="chip">8GB</span><span class="chip">12GB</span><span class="chip">16GB</span></div>
+            <h3>BỘ NHỚ TRONG</h3>
+            <div class="chips"><span class="chip">128GB</span><span class="chip">256GB</span><span class="chip">512GB</span><span class="chip">1TB</span></div>
+          `
+        });
+        return;
+      }
+
+      if (view === "laptops") {
+        renderListing({
+          sidebarTitle: "Bộ lọc",
+          title: "Laptop",
+          subtitle: "Khám phá bộ sưu tập máy tính xách tay hiệu suất cao từ các thương hiệu hàng đầu thế giới.",
+          sort: "Sắp xếp: Mới nhất",
+          items: products.laptops,
+          showStars: true,
+          pagination: '<span class="page">‹</span><span class="page is-active">1</span><span class="page">2</span><span class="page">3</span><span class="page">…</span><span class="page">12</span><span class="page">›</span>',
+          sidebar: `
+            <h3>THƯƠNG HIỆU</h3>
+            <label><input type="checkbox"> Apple (MacBook)</label>
+            <label><input type="checkbox" checked> ASUS ROG/TUF</label>
+            <label><input type="checkbox"> Dell XPS/Alienware</label>
+            <label><input type="checkbox"> HP Spectre/Omen</label>
+            <label><input type="checkbox"> Lenovo Legion</label>
+            <h3>MỨC GIÁ</h3>
+            <label><input type="radio" name="laptop-price"> Dưới 15 triệu</label>
+            <label><input type="radio" name="laptop-price"> 15 - 25 triệu</label>
+            <label><input type="radio" name="laptop-price" checked> 25 - 40 triệu</label>
+            <label><input type="radio" name="laptop-price"> Trên 40 triệu</label>
+            <h3>CẤU HÌNH CPU</h3>
+            <div class="chips"><span class="chip">Core i5</span><span class="chip">Core i7</span><span class="chip">Core i9</span><span class="chip">Ryzen 7</span></div>
+            <h3>BỘ NHỚ RAM</h3>
+            <div class="chips"><span class="chip">8GB</span><span class="chip">16GB</span><span class="chip">32GB</span></div>
+          `
+        });
+        return;
+      }
+
+      if (view === "components") {
+        renderListing({
+          sidebarTitle: "Bộ lọc",
+          title: "Linh kiện máy tính",
+          subtitle: "Hiển thị 24 sản phẩm mới nhất với hiệu năng tối ưu cho gaming và workstation.",
+          sort: "Sắp xếp: Bán chạy nhất",
+          items: products.components,
+          sidebar: `
+            <h3>DANH MỤC</h3>
+            <label><input type="checkbox" checked> CPU - Bộ vi xử lý</label>
+            <label><input type="checkbox"> GPU - Card đồ họa</label>
+            <label><input type="checkbox"> Mainboard - Bo mạch chủ</label>
+            <label><input type="checkbox"> RAM - Bá»™ nhá»› trong</label>
+            <label><input type="checkbox"> PSU - Nguồn máy tính</label>
+            <h3>THƯƠNG HIỆU</h3>
+            <div class="chips"><span class="chip">ASUS</span><span class="chip">MSI</span><span class="chip">Gigabyte</span><span class="chip">Intel</span><span class="chip">AMD</span><span class="chip">NVIDIA</span></div>
+            <h3>KHOẢNG GIÁ</h3>
+            <div class="range-track"><div class="range-dot"></div></div>
+            <div style="display:flex;justify-content:space-between;color:var(--muted)"><span>0Ä'</span><span>50tr+</span></div>
+          `
+        });
+        return;
+      }
+
+      if (view === "accessories") {
+        renderListing({
+          sidebarTitle: "Bộ lọc",
+          title: "Phụ kiện Công nghệ",
+          subtitle: "Khám phá bộ sưu tập phụ kiện gaming và văn phòng đỉnh cao, tối ưu thẩm mỹ setup.",
+          sort: "Sắp xếp: Phổ biến nhất",
+          items: products.accessories,
+          sidebar: `
+            <h3>DANH MỤC</h3>
+            <label><input type="checkbox"> Headphones</label>
+            <label><input type="checkbox" checked> Mouse</label>
+            <label><input type="checkbox"> Keyboard</label>
+            <label><input type="checkbox"> Charging</label>
+            <label><input type="checkbox"> Audio</label>
+            <h3>THƯƠNG HIỆU</h3>
+            <label><input type="checkbox"> Sony</label>
+            <label><input type="checkbox"> Logitech</label>
+            <label><input type="checkbox"> Apple</label>
+            <label><input type="checkbox"> Razer</label>
+            <h3>KHOẢNG GIÁ</h3>
+            <div class="range-track"><div class="range-dot"></div></div>
+            <div style="display:flex;justify-content:space-between;color:var(--muted)"><span>0Ä'</span><span>10.000.000Ä'</span></div>
+          `
+        });
+        return;
+      }
+
+      if (view === "promotions") {
+        renderPromotions();
+        return;
+      }
+
+      if (view === "product" && id) {
+        renderProduct(id);
+        return;
+      }
+
+      renderHome();
+    }
+
+    window.addEventListener("hashchange", renderRoute);
+    renderRoute();
+  </script>
+</body>
+</html>
+
